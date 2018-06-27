@@ -1,6 +1,6 @@
 {
   "name": "schedule-occurrence",
-  "version": "0.0.0-alpha",
+  "version": "0.0.0-alpha.0",
   "description": "Javascript library for calculating schedule occurrences",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,6 @@
     "luxon",
     "timezones"
   ],
-  "author": "",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/chrisdostert/schedule-occurrence-js/issues"

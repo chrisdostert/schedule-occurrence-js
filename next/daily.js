@@ -1,6 +1,6 @@
 const {DateTime} = require('luxon')
 
-function getNextHourly (
+function daily (
   timeZoneId,
   startDateTime,
   interval
@@ -11,9 +11,9 @@ function getNextHourly (
       {zone: timeZoneId}
     )
     .plus(
-      {hours: interval}
+      {days: interval}
     )
     .toJSDate()
 }
 
-module.exports = getNextHourly
+module.exports = daily

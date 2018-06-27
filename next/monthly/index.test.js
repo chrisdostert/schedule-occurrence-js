@@ -6,7 +6,7 @@ jest.mock('./days', () => jest.fn())
 
 const objectUnderTest = require('./index')
 
-describe('getNextMonthly', () => {
+describe('monthly', () => {
   beforeEach(() => {
     jest.resetAllMocks()
   })

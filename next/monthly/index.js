@@ -1,27 +1,30 @@
 const dayOfWeeks = require('./dayOfWeeks')
 const days = require('./days')
 
-async function getNextMonthly (
+async function monthly (
   timeZoneId,
   startDateTime,
-  monthly,
+  recurrence,
   interval
 ) {
-  if (monthly.days) {
+  const recurrenceDays = recurrence.days
+  const recurrenceDayOfWeeks = recurrence.dayOfWeeks
+
+  if (recurrenceDays) {
     return days(
       timeZoneId,
       startDateTime,
-      monthly.days,
+      recurrenceDays,
       interval
     )
-  } else if (monthly.dayOfWeeks) {
+  } else if (recurrenceDayOfWeeks) {
     return dayOfWeeks(
       timeZoneId,
       startDateTime,
-      monthly.dayOfWeeks,
+      recurrenceDayOfWeeks,
       interval
     )
   }
 }
 
-module.exports = getNextMonthly
+module.exports = monthly

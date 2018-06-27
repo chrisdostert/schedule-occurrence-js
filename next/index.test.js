@@ -1,14 +1,16 @@
-const getNextDaily = require('./getNextDaily')
-jest.mock('./getNextDaily', () => jest.fn())
+const daily = require('./daily')
+jest.mock('./daily', () => jest.fn())
 
-const getNextHourly = require('./getNextHourly')
-jest.mock('./getNextHourly', () => jest.fn())
+const hourly = require('./hourly')
+jest.mock('./hourly', () => jest.fn())
 
-const getNextMonthly = require('./getNextMonthly')
-jest.mock('./getNextMonthly', () => jest.fn())
+const monthly = require('./monthly')
+jest.mock('./monthly', () => jest.fn())
 
-const getNextWeekly = require('./getNextWeekly')
-jest.mock('./getNextWeekly', () => jest.fn())
+const weekly = require('./weekly')
+jest.mock('./weekly', () => jest.fn())
+
+const {DateTime} = require('luxon')
 
 const objectUnderTest = require('./index')
 
@@ -17,10 +19,10 @@ describe('next', () => {
     jest.resetAllMocks()
   })
   describe('recurrence.daily truthy', () => {
-    it('should call getNextDaily w/ expected args', async () => {
+    it('should call daily w/ expected args', async () => {
       /* arrange */
-      const providedTimeZoneId = 'providedTimeZoneId'
-      const providedStartDateTime = 'providedStartDateTime'
+      const providedTimeZoneId = 'America/Los_Angeles'
+      const providedStartDateTime = '2018-01-01T01:01:01'
       const providedRecurrence = {
         daily: {},
         interval: 'interval'
@@ -34,19 +36,18 @@ describe('next', () => {
       )
 
       /* assert */
-      expect(getNextDaily)
+      expect(daily)
         .toBeCalledWith(
-          providedTimeZoneId,
-          providedStartDateTime,
+          DateTime.fromISO(providedStartDateTime, {zone: providedTimeZoneId}),
           providedRecurrence.interval
         )
     })
   })
   describe('recurrence.hourly truthy', () => {
-    it('should call getNextHourly w/ expected args', async () => {
+    it('should call hourly w/ expected args', async () => {
       /* arrange */
-      const providedTimeZoneId = 'providedTimeZoneId'
-      const providedStartDateTime = 'providedStartDateTime'
+      const providedTimeZoneId = 'America/Los_Angeles'
+      const providedStartDateTime = '2018-01-01T01:01:01'
       const providedRecurrence = {
         hourly: {},
         interval: 'interval'
@@ -60,19 +61,18 @@ describe('next', () => {
       )
 
       /* assert */
-      expect(getNextHourly)
+      expect(hourly)
         .toBeCalledWith(
-          providedTimeZoneId,
-          providedStartDateTime,
+          DateTime.fromISO(providedStartDateTime, {zone: providedTimeZoneId}),
           providedRecurrence.interval
         )
     })
   })
   describe('recurrence.monthly truthy', () => {
-    it('should call getNextMonthly w/ expected args', async () => {
+    it('should call monthly w/ expected args', async () => {
       /* arrange */
-      const providedTimeZoneId = 'providedTimeZoneId'
-      const providedStartDateTime = 'providedStartDateTime'
+      const providedTimeZoneId = 'America/Los_Angeles'
+      const providedStartDateTime = '2018-01-01T01:01:01'
       const providedRecurrence = {
         monthly: 'monthly',
         interval: 'interval'
@@ -86,20 +86,19 @@ describe('next', () => {
       )
 
       /* assert */
-      expect(getNextMonthly)
+      expect(monthly)
         .toBeCalledWith(
-          providedTimeZoneId,
-          providedStartDateTime,
+          DateTime.fromISO(providedStartDateTime, {zone: providedTimeZoneId}),
           providedRecurrence.monthly,
           providedRecurrence.interval
         )
     })
   })
   describe('recurrence.weekly truthy', () => {
-    it('should call getNextWeekly w/ expected args', async () => {
+    it('should call weekly w/ expected args', async () => {
       /* arrange */
-      const providedTimeZoneId = 'providedTimeZoneId'
-      const providedStartDateTime = 'providedStartDateTime'
+      const providedTimeZoneId = 'America/Los_Angeles'
+      const providedStartDateTime = '2018-01-01T01:01:01'
       const providedRecurrence = {
         weekly: 'weekly',
         interval: 'interval'
@@ -113,10 +112,9 @@ describe('next', () => {
       )
 
       /* assert */
-      expect(getNextWeekly)
+      expect(weekly)
         .toBeCalledWith(
-          providedTimeZoneId,
-          providedStartDateTime,
+          DateTime.fromISO(providedStartDateTime, {zone: providedTimeZoneId}),
           providedRecurrence.weekly,
           providedRecurrence.interval
         )

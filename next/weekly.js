@@ -1,9 +1,9 @@
 const {DateTime} = require('luxon')
 
-async function getNextWeekly (
+function weekly (
   timeZoneId,
   startDateTime,
-  weekly,
+  recurrence,
   interval
 ) {
   // find next observed day of week
@@ -18,7 +18,7 @@ async function getNextWeekly (
       )
 
     if (
-      weekly.daysOfWeek.includes(
+      recurrence.daysOfWeek.includes(
         testDateTime.weekdayLong.toLowerCase()
       )
     ) {
@@ -31,4 +31,4 @@ async function getNextWeekly (
   }
 }
 
-module.exports = getNextWeekly
+module.exports = weekly
