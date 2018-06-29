@@ -1,8 +1,8 @@
 function daily (
-  luxonStartDateTime,
+  previousDateTime,
   interval
 ) {
-  return luxonStartDateTime
+  return previousDateTime
     .plus(
       {days: interval}
     )

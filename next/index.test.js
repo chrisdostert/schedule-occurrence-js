@@ -1,14 +1,5 @@
-const daily = require('./daily')
-jest.mock('./daily', () => jest.fn())
-
-const hourly = require('./hourly')
-jest.mock('./hourly', () => jest.fn())
-
-const monthly = require('./monthly')
-jest.mock('./monthly', () => jest.fn())
-
-const weekly = require('./weekly')
-jest.mock('./weekly', () => jest.fn())
+const reoccurrence = require('./reoccurrence')
+jest.mock('./reoccurrence', () => jest.fn())
 
 const {DateTime} = require('luxon')
 
@@ -67,135 +58,26 @@ describe('next', () => {
         .toEqual(expectedResult)
     })
   })
-  describe('recurrence.daily truthy', () => {
-    it('should call daily w/ expected args', () => {
-      /* arrange */
-      const providedTimeZoneId = 'America/Los_Angeles'
-      const providedStartDateTime = '2018-01-01T01:01:01'
-      const providedRecurrence = {
-        daily: {},
-        interval: 'interval'
-      }
+  it('should call reoccurrence w/ expected args', () => {
+    /* arrange */
+    const providedTimeZoneId = 'providedTimeZoneId'
+    const providedRecurrence = 'providedRecurrence'
+    const providedPrevious = 'providedPrevious'
 
-      /* act */
-      objectUnderTest(
+    /* act */
+    objectUnderTest(
+      providedTimeZoneId,
+      'providedStartDateTime',
+      providedRecurrence,
+      providedPrevious
+    )
+
+    /* assert */
+    expect(reoccurrence)
+      .toBeCalledWith(
         providedTimeZoneId,
-        providedStartDateTime,
         providedRecurrence,
-        'providedPrevious'
+        providedPrevious
       )
-
-      /* assert */
-      expect(daily)
-        .toBeCalledWith(
-          DateTime.fromISO(providedStartDateTime, {zone: providedTimeZoneId}),
-          providedRecurrence.interval
-        )
-    })
-  })
-  describe('recurrence.hourly truthy', () => {
-    it('should call hourly w/ expected args', () => {
-      /* arrange */
-      const providedTimeZoneId = 'America/Los_Angeles'
-      const providedStartDateTime = '2018-01-01T01:01:01'
-      const providedRecurrence = {
-        hourly: {},
-        interval: 'interval'
-      }
-
-      /* act */
-      objectUnderTest(
-        providedTimeZoneId,
-        providedStartDateTime,
-        providedRecurrence,
-        'providedPrevious'
-      )
-
-      /* assert */
-      expect(hourly)
-        .toBeCalledWith(
-          DateTime.fromISO(providedStartDateTime, {zone: providedTimeZoneId}),
-          providedRecurrence.interval
-        )
-    })
-  })
-  describe('recurrence.monthly truthy', () => {
-    it('should call monthly w/ expected args', () => {
-      /* arrange */
-      const providedTimeZoneId = 'America/Los_Angeles'
-      const providedStartDateTime = '2018-01-01T01:01:01'
-      const providedRecurrence = {
-        monthly: 'monthly',
-        interval: 'interval'
-      }
-
-      /* act */
-      objectUnderTest(
-        providedTimeZoneId,
-        providedStartDateTime,
-        providedRecurrence,
-        'providedPrevious'
-      )
-
-      /* assert */
-      expect(monthly)
-        .toBeCalledWith(
-          DateTime.fromISO(providedStartDateTime, {zone: providedTimeZoneId}),
-          providedRecurrence.monthly,
-          providedRecurrence.interval
-        )
-    })
-  })
-  describe('recurrence.weekly truthy', () => {
-    it('should call weekly w/ expected args', () => {
-      /* arrange */
-      const providedTimeZoneId = 'America/Los_Angeles'
-      const providedStartDateTime = '2018-01-01T01:01:01'
-      const providedRecurrence = {
-        weekly: 'weekly',
-        interval: 'interval'
-      }
-
-      /* act */
-      objectUnderTest(
-        providedTimeZoneId,
-        providedStartDateTime,
-        providedRecurrence,
-        'providedPrevious'
-      )
-
-      /* assert */
-      expect(weekly)
-        .toBeCalledWith(
-          DateTime.fromISO(providedStartDateTime, {zone: providedTimeZoneId}),
-          providedRecurrence.weekly,
-          providedRecurrence.interval
-        )
-    })
-  })
-  describe('unexpected recurrence', () => {
-    it('should throw expected error', () => {
-      /* arrange */
-      const providedRecurrence = {}
-
-      /* act */
-      let actualError
-      try {
-        objectUnderTest(
-          'providedTimeZoneId',
-          'providedStartDateTime',
-          providedRecurrence,
-          'providedPrevious'
-        )
-      } catch (error) {
-        actualError = error
-      }
-
-      /* assert */
-      expect(actualError)
-        .toEqual(
-          new Error(`unexpected recurrence ${JSON.stringify(providedRecurrence)}`)
-        )
-    })
   })
 })

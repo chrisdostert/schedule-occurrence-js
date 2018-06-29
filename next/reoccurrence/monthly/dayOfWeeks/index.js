@@ -2,12 +2,12 @@ const getFirstOccurrenceNextMonth = require('./getFirstOccurrenceNextMonth')
 const getOccurrenceNumber = require('./getOccurrenceNumber')
 
 function dayOfWeeks (
-  luxonStartDateTime,
+  previousDateTime,
   dayOfWeeks,
   interval
 ) {
   const occurrenceNumber = getOccurrenceNumber(
-    luxonStartDateTime
+    previousDateTime
   )
 
   // day of week occurrences in months varies so,
@@ -17,7 +17,7 @@ function dayOfWeeks (
   let remainingIntervals = interval
   for (let i = 0; remainingIntervals > 0; i++) {
     testDateTime = getFirstOccurrenceNextMonth(
-      luxonStartDateTime
+      previousDateTime
         .plus(
           {months: i}
         ),

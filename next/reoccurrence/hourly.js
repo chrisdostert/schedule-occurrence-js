@@ -1,8 +1,8 @@
 function hourly (
-  luxonStartDateTime,
+  previousDateTime,
   interval
 ) {
-  return luxonStartDateTime
+  return previousDateTime
     .plus(
       {hours: interval}
     )

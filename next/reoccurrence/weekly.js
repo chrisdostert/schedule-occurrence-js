@@ -1,11 +1,11 @@
 function weekly (
-  luxonStartDateTime,
+  previousDateTime,
   recurrence,
   interval
 ) {
   // find next observed day of week
   for (let i = 1; i < 8; i++) {
-    const testDateTime = luxonStartDateTime
+    const testDateTime = previousDateTime
       .plus(
         {days: i}
       )

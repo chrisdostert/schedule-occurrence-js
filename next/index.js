@@ -1,15 +1,13 @@
-const daily = require('./daily')
-const hourly = require('./hourly')
-const monthly = require('./monthly')
-const weekly = require('./weekly')
-const {DateTime} = require('luxon')
+const reoccurrence = require('./reoccurrence')
+const {DateTime, Settings} = require('luxon')
+Settings.throwOnInvalid = true
 
 /**
  * Gets the next schedule occurrence
  * @param {string} timeZoneId IANA timezone id
- * @param {Date} startDateTime Date designating the start of the schedule
+ * @param {string} startDateTime Zoneless ISO 8601 datetime designating the start of the schedule
  * @param {{daily, hourly, interval, monthly, weekly}} recurrence
- * @param {{occursDateTime, count}|null} previous
+ * @param {{dateTime, count}|null} previous
  * @returns {Date|null} Date of next occurrence or null
  */
 function next (
@@ -18,51 +16,21 @@ function next (
   recurrence,
   previous
 ) {
-  const luxonStartDateTime = DateTime
-    .fromISO(
-      startDateTime,
-      {zone: timeZoneId}
-    )
-
   if (!(recurrence && previous)) {
     // single/first occurrence
-    return luxonStartDateTime.toJSDate()
+    return DateTime
+      .fromISO(
+        startDateTime,
+        {zone: timeZoneId}
+      )
+      .toJSDate()
   }
 
-  const recurrenceInterval = recurrence.interval
-
-  if (recurrence.daily) {
-    return daily(
-      luxonStartDateTime,
-      recurrenceInterval
-    )
-  }
-  if (recurrence.hourly) {
-    return hourly(
-      luxonStartDateTime,
-      recurrenceInterval
-    )
-  }
-
-  const weeklyRecurrence = recurrence.weekly
-  if (weeklyRecurrence) {
-    return weekly(
-      luxonStartDateTime,
-      weeklyRecurrence,
-      recurrenceInterval
-    )
-  }
-
-  const monthlyRecurrence = recurrence.monthly
-  if (monthlyRecurrence) {
-    return monthly(
-      luxonStartDateTime,
-      monthlyRecurrence,
-      recurrenceInterval
-    )
-  }
-
-  throw new Error(`unexpected recurrence ${JSON.stringify(recurrence)}`)
+  return reoccurrence(
+    timeZoneId,
+    recurrence,
+    previous
+  )
 }
 
 module.exports = next
