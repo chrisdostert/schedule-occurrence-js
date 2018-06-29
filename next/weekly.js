@@ -1,18 +1,11 @@
-const {DateTime} = require('luxon')
-
 function weekly (
-  timeZoneId,
-  startDateTime,
+  luxonStartDateTime,
   recurrence,
   interval
 ) {
   // find next observed day of week
   for (let i = 1; i < 8; i++) {
-    const testDateTime = DateTime
-      .fromISO(
-        startDateTime,
-        {zone: timeZoneId}
-      )
+    const testDateTime = luxonStartDateTime
       .plus(
         {days: i}
       )

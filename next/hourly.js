@@ -1,15 +1,8 @@
-const {DateTime} = require('luxon')
-
 function hourly (
-  timeZoneId,
-  startDateTime,
+  luxonStartDateTime,
   interval
 ) {
-  return DateTime
-    .fromISO(
-      startDateTime,
-      {zone: timeZoneId}
-    )
+  return luxonStartDateTime
     .plus(
       {hours: interval}
     )

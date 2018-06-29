@@ -2,8 +2,7 @@ const dayOfWeeks = require('./dayOfWeeks')
 const days = require('./days')
 
 async function monthly (
-  timeZoneId,
-  startDateTime,
+  luxonStartDateTime,
   recurrence,
   interval
 ) {
@@ -12,15 +11,13 @@ async function monthly (
 
   if (recurrenceDays) {
     return days(
-      timeZoneId,
-      startDateTime,
+      luxonStartDateTime,
       recurrenceDays,
       interval
     )
   } else if (recurrenceDayOfWeeks) {
     return dayOfWeeks(
-      timeZoneId,
-      startDateTime,
+      luxonStartDateTime,
       recurrenceDayOfWeeks,
       interval
     )

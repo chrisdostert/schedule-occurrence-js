@@ -1,19 +1,11 @@
-const { DateTime } = require('luxon')
 const getFirstOccurrenceNextMonth = require('./getFirstOccurrenceNextMonth')
 const getOccurrenceNumber = require('./getOccurrenceNumber')
 
-async function dayOfWeeks (
-  timeZoneId,
-  startDateTime,
+function dayOfWeeks (
+  luxonStartDateTime,
   dayOfWeeks,
   interval
 ) {
-  const luxonStartDateTime = DateTime
-    .fromISO(
-      startDateTime,
-      { zone: timeZoneId }
-    )
-
   const occurrenceNumber = getOccurrenceNumber(
     luxonStartDateTime
   )

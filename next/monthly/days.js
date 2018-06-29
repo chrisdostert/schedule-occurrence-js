@@ -1,8 +1,5 @@
-const {DateTime} = require('luxon')
-
-async function days (
-  timeZoneId,
-  startDateTime,
+function days (
+  luxonStartDateTime,
   days,
   interval
 ) {
@@ -12,11 +9,7 @@ async function days (
   let testDateTime
   let remainingIntervals = interval
   for (let i = 1; remainingIntervals > 0; i++) {
-    testDateTime = DateTime
-      .fromISO(
-        startDateTime,
-        {zone: timeZoneId}
-      )
+    testDateTime = luxonStartDateTime
       .plus(
         {months: i}
       )

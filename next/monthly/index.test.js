@@ -13,15 +13,13 @@ describe('monthly', () => {
   describe('monthly.days truthy', () => {
     it('should call days w/ expected args', async () => {
       /* arrange */
-      const providedTimeZoneId = 'providedTimeZoneId'
-      const providedStartDateTime = 'providedStartDateTime'
+      const providedLuxonStartDateTime = 'providedLuxonStartDateTime'
       const providedMonthly = { days: 'days' }
       const providedInterval = 'providedInterval'
 
       /* act */
       await objectUnderTest(
-        providedTimeZoneId,
-        providedStartDateTime,
+        providedLuxonStartDateTime,
         providedMonthly,
         providedInterval
       )
@@ -29,8 +27,7 @@ describe('monthly', () => {
       /* assert */
       expect(days)
         .toBeCalledWith(
-          providedTimeZoneId,
-          providedStartDateTime,
+          providedLuxonStartDateTime,
           providedMonthly.days,
           providedInterval
         )
@@ -39,15 +36,13 @@ describe('monthly', () => {
   describe('monthly.dayOfWeeks truthy', () => {
     it('should call days w/ expected args', async () => {
       /* arrange */
-      const providedTimeZoneId = 'providedTimeZoneId'
-      const providedStartDateTime = 'providedStartDateTime'
+      const providedLuxonStartDateTime = 'providedLuxonStartDateTime'
       const providedMonthly = { dayOfWeeks: 'dayOfWeeks' }
       const providedInterval = 'providedInterval'
 
       /* act */
       await objectUnderTest(
-        providedTimeZoneId,
-        providedStartDateTime,
+        providedLuxonStartDateTime,
         providedMonthly,
         providedInterval
       )
@@ -55,8 +50,7 @@ describe('monthly', () => {
       /* assert */
       expect(dayOfWeeks)
         .toBeCalledWith(
-          providedTimeZoneId,
-          providedStartDateTime,
+          providedLuxonStartDateTime,
           providedMonthly.dayOfWeeks,
           providedInterval
         )

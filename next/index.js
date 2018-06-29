@@ -9,16 +9,26 @@ const {DateTime} = require('luxon')
  * @param {string} timeZoneId IANA timezone id
  * @param {Date} startDateTime Date designating the start of the schedule
  * @param {{daily, hourly, interval, monthly, weekly}} recurrence
+ * @param {{occursDateTime, count}|null} previous
  * @returns {Date|null} Date of next occurrence or null
  */
-async function next (
+function next (
   timeZoneId,
   startDateTime,
-  recurrence
+  recurrence,
+  previous
 ) {
-  const luxonStartDateTime = DateTime.fromISO(startDateTime, {zone: timeZoneId})
-  const weeklyRecurrence = recurrence.weekly
-  const monthlyRecurrence = recurrence.monthly
+  const luxonStartDateTime = DateTime
+    .fromISO(
+      startDateTime,
+      {zone: timeZoneId}
+    )
+
+  if (!(recurrence && previous)) {
+    // single/first occurrence
+    return luxonStartDateTime.toJSDate()
+  }
+
   const recurrenceInterval = recurrence.interval
 
   if (recurrence.daily) {
@@ -26,24 +36,32 @@ async function next (
       luxonStartDateTime,
       recurrenceInterval
     )
-  } else if (recurrence.hourly) {
+  }
+  if (recurrence.hourly) {
     return hourly(
       luxonStartDateTime,
       recurrenceInterval
     )
-  } else if (weeklyRecurrence) {
+  }
+
+  const weeklyRecurrence = recurrence.weekly
+  if (weeklyRecurrence) {
     return weekly(
       luxonStartDateTime,
       weeklyRecurrence,
       recurrenceInterval
     )
-  } else if (monthlyRecurrence) {
+  }
+
+  const monthlyRecurrence = recurrence.monthly
+  if (monthlyRecurrence) {
     return monthly(
       luxonStartDateTime,
       monthlyRecurrence,
       recurrenceInterval
     )
   }
+
   throw new Error(`unexpected recurrence ${JSON.stringify(recurrence)}`)
 }
 

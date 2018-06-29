@@ -18,8 +18,57 @@ describe('next', () => {
   beforeEach(() => {
     jest.resetAllMocks()
   })
+  describe('recurrence falsy', () => {
+    it('should return expected result', () => {
+      /* arrange */
+      const providedTimeZoneId = 'America/Los_Angeles'
+      const providedStartDateTime = '2018-01-01T01:01:01'
+
+      const expectedResult = DateTime
+        .fromISO(
+          providedStartDateTime,
+          {zone: providedTimeZoneId}
+        )
+        .toJSDate()
+
+      /* act */
+      const actualResult = objectUnderTest(
+        providedTimeZoneId,
+        providedStartDateTime
+      )
+
+      /* assert */
+      expect(actualResult)
+        .toEqual(expectedResult)
+    })
+  })
+  describe('previous falsy', () => {
+    it('should return expected result', () => {
+      /* arrange */
+      const providedTimeZoneId = 'America/Los_Angeles'
+      const providedStartDateTime = '2018-01-01T01:01:01'
+
+      const expectedResult = DateTime
+        .fromISO(
+          providedStartDateTime,
+          {zone: providedTimeZoneId}
+        )
+        .toJSDate()
+
+      /* act */
+      const actualResult = objectUnderTest(
+        providedTimeZoneId,
+        providedStartDateTime,
+        'recurrence'
+      )
+
+      /* assert */
+      expect(actualResult)
+        .toEqual(expectedResult)
+    })
+  })
   describe('recurrence.daily truthy', () => {
-    it('should call daily w/ expected args', async () => {
+    it('should call daily w/ expected args', () => {
       /* arrange */
       const providedTimeZoneId = 'America/Los_Angeles'
       const providedStartDateTime = '2018-01-01T01:01:01'
@@ -29,10 +78,11 @@ describe('next', () => {
       }
 
       /* act */
-      await objectUnderTest(
+      objectUnderTest(
         providedTimeZoneId,
         providedStartDateTime,
-        providedRecurrence
+        providedRecurrence,
+        'providedPrevious'
       )
 
       /* assert */
@@ -44,7 +94,7 @@ describe('next', () => {
     })
   })
   describe('recurrence.hourly truthy', () => {
-    it('should call hourly w/ expected args', async () => {
+    it('should call hourly w/ expected args', () => {
       /* arrange */
       const providedTimeZoneId = 'America/Los_Angeles'
       const providedStartDateTime = '2018-01-01T01:01:01'
@@ -54,10 +104,11 @@ describe('next', () => {
       }
 
       /* act */
-      await objectUnderTest(
+      objectUnderTest(
         providedTimeZoneId,
         providedStartDateTime,
-        providedRecurrence
+        providedRecurrence,
+        'providedPrevious'
       )
 
       /* assert */
@@ -69,7 +120,7 @@ describe('next', () => {
     })
   })
   describe('recurrence.monthly truthy', () => {
-    it('should call monthly w/ expected args', async () => {
+    it('should call monthly w/ expected args', () => {
       /* arrange */
       const providedTimeZoneId = 'America/Los_Angeles'
       const providedStartDateTime = '2018-01-01T01:01:01'
@@ -79,10 +130,11 @@ describe('next', () => {
       }
 
       /* act */
-      await objectUnderTest(
+      objectUnderTest(
         providedTimeZoneId,
         providedStartDateTime,
-        providedRecurrence
+        providedRecurrence,
+        'providedPrevious'
       )
 
       /* assert */
@@ -95,7 +147,7 @@ describe('next', () => {
     })
   })
   describe('recurrence.weekly truthy', () => {
-    it('should call weekly w/ expected args', async () => {
+    it('should call weekly w/ expected args', () => {
       /* arrange */
       const providedTimeZoneId = 'America/Los_Angeles'
       const providedStartDateTime = '2018-01-01T01:01:01'
@@ -105,10 +157,11 @@ describe('next', () => {
       }
 
       /* act */
-      await objectUnderTest(
+      objectUnderTest(
         providedTimeZoneId,
         providedStartDateTime,
-        providedRecurrence
+        providedRecurrence,
+        'providedPrevious'
       )
 
       /* assert */
@@ -121,17 +174,18 @@ describe('next', () => {
     })
   })
   describe('unexpected recurrence', () => {
-    it('should throw expected error', async () => {
+    it('should throw expected error', () => {
       /* arrange */
       const providedRecurrence = {}
 
       /* act */
       let actualError
       try {
-        await objectUnderTest(
+        objectUnderTest(
           'providedTimeZoneId',
           'providedStartDateTime',
-          providedRecurrence
+          providedRecurrence,
+          'providedPrevious'
         )
       } catch (error) {
         actualError = error
