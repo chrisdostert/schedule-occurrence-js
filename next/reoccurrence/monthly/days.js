@@ -20,7 +20,6 @@ function days (
   }
 
   return testDateTime
-    .toJSDate()
 }
 
 module.exports = days

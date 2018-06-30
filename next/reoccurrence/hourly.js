@@ -6,7 +6,6 @@ function hourly (
     .plus(
       {hours: interval}
     )
-    .toJSDate()
 }
 
 module.exports = hourly

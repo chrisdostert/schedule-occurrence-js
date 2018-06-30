@@ -18,32 +18,8 @@ describe('next', () => {
   beforeEach(() => {
     jest.resetAllMocks()
   })
-  describe('previous.count >= recurrence.end.count', () => {
-    it('should return undefined', () => {
-      /* arrange */
-      const providedRecurrence = {
-        end: {
-          count: 2
-        }
-      }
-      const providedPrevious = {
-        count: providedRecurrence.end.count
-      }
-
-      /* act */
-      const actualResult = objectUnderTest(
-        'providedTimeZoneId',
-        providedRecurrence,
-        providedPrevious
-      )
-
-      /* assert */
-      expect(actualResult)
-        .toEqual(undefined)
-    })
-  })
   describe('recurrence.daily truthy', () => {
-    it('should call daily w/ expected args', () => {
+    it('should call daily w/ expected args & return result', () => {
       /* arrange */
       const providedTimeZoneId = 'America/Los_Angeles'
       const providedRecurrence = {
@@ -54,8 +30,11 @@ describe('next', () => {
         dateTime: new Date('2018-01-01T01:01:01')
       }
 
+      const expectedResult = 'expectedResult'
+      daily.mockImplementation(() => expectedResult)
+
       /* act */
-      objectUnderTest(
+      const actualResult = objectUnderTest(
         providedTimeZoneId,
         providedRecurrence,
         providedPrevious
@@ -67,10 +46,13 @@ describe('next', () => {
           DateTime.fromJSDate(providedPrevious.dateTime, {zone: providedTimeZoneId}),
           providedRecurrence.interval
         )
+
+      expect(actualResult)
+        .toEqual(expectedResult)
     })
   })
   describe('recurrence.hourly truthy', () => {
-    it('should call hourly w/ expected args', () => {
+    it('should call hourly w/ expected args & return result', () => {
       /* arrange */
       const providedTimeZoneId = 'America/Los_Angeles'
       const providedRecurrence = {
@@ -81,8 +63,11 @@ describe('next', () => {
         dateTime: new Date('2018-01-01T01:01:01')
       }
 
+      const expectedResult = 'expectedResult'
+      hourly.mockImplementation(() => expectedResult)
+
       /* act */
-      objectUnderTest(
+      const actualResult = objectUnderTest(
         providedTimeZoneId,
         providedRecurrence,
         providedPrevious
@@ -94,6 +79,9 @@ describe('next', () => {
           DateTime.fromJSDate(providedPrevious.dateTime, {zone: providedTimeZoneId}),
           providedRecurrence.interval
         )
+
+      expect(actualResult)
+        .toEqual(expectedResult)
     })
   })
   describe('recurrence.monthly truthy', () => {
@@ -108,8 +96,11 @@ describe('next', () => {
         dateTime: new Date('2018-01-01T01:01:01')
       }
 
+      const expectedResult = 'expectedResult'
+      monthly.mockImplementation(() => expectedResult)
+
       /* act */
-      objectUnderTest(
+      const actualResult = objectUnderTest(
         providedTimeZoneId,
         providedRecurrence,
         providedPrevious
@@ -122,6 +113,9 @@ describe('next', () => {
           providedRecurrence.monthly,
           providedRecurrence.interval
         )
+
+      expect(actualResult)
+        .toEqual(expectedResult)
     })
   })
   describe('recurrence.weekly truthy', () => {
@@ -136,8 +130,11 @@ describe('next', () => {
         dateTime: new Date('2018-01-01T01:01:01')
       }
 
+      const expectedResult = 'expectedResult'
+      weekly.mockImplementation(() => expectedResult)
+
       /* act */
-      objectUnderTest(
+      const actualResult = objectUnderTest(
         providedTimeZoneId,
         providedRecurrence,
         providedPrevious
@@ -150,30 +147,9 @@ describe('next', () => {
           providedRecurrence.weekly,
           providedRecurrence.interval
         )
-    })
-  })
-  describe('unexpected recurrence', () => {
-    it('should throw expected error', () => {
-      /* arrange */
-      const providedRecurrence = {}
 
-      /* act */
-      let actualError
-      try {
-        objectUnderTest(
-          'providedTimeZoneId',
-          providedRecurrence,
-          'providedPrevious'
-        )
-      } catch (error) {
-        actualError = error
-      }
-
-      /* assert */
-      expect(actualError)
-        .toEqual(
-          new Error(`unexpected recurrence ${JSON.stringify(providedRecurrence)}`)
-        )
+      expect(actualResult)
+        .toEqual(expectedResult)
     })
   })
 })

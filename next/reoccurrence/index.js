@@ -17,11 +17,6 @@ function next (
   recurrence,
   previous
 ) {
-  if (previous.count >= (recurrence.end && recurrence.end.count)) {
-    // end of recurrence
-    return
-  }
-
   const previousDateTime = DateTime
     .fromJSDate(
       previous.dateTime,
@@ -61,8 +56,6 @@ function next (
       recurrenceInterval
     )
   }
-
-  throw new Error(`unexpected recurrence ${JSON.stringify(recurrence)}`)
 }
 
 module.exports = next

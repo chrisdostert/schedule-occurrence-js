@@ -19,7 +19,6 @@ function weekly (
         .plus(
           {weeks: interval}
         )
-        .toJSDate()
     }
   }
 }

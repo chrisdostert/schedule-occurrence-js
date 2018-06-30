@@ -32,7 +32,6 @@ function dayOfWeeks (
     }
   }
   return testDateTime
-    .toJSDate()
 }
 
 module.exports = dayOfWeeks

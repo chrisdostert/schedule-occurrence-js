@@ -26,11 +26,31 @@ function next (
       .toJSDate()
   }
 
-  return reoccurrence(
+  if (previous.count >= (recurrence.end && recurrence.end.count)) {
+    // end of recurrence
+    return
+  }
+
+  const nextDateTime = reoccurrence(
     timeZoneId,
     recurrence,
     previous
   )
+
+  let endDateTime
+  if (recurrence.end) {
+    endDateTime = DateTime
+      .fromISO(
+        recurrence.end.dateTime,
+        {zone: timeZoneId}
+      )
+  }
+
+  if (
+    !(endDateTime && (endDateTime < nextDateTime))
+  ) {
+    return nextDateTime
+  }
 }
 
 module.exports = next

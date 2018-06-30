@@ -6,7 +6,6 @@ function daily (
     .plus(
       {days: interval}
     )
-    .toJSDate()
 }
 
 module.exports = daily
