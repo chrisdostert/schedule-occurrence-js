@@ -38,7 +38,7 @@ function next (
   )
 
   let endDateTime
-  if (recurrence.end) {
+  if (recurrence.end && recurrence.end.dateTime) {
     endDateTime = DateTime
       .fromISO(
         recurrence.end.dateTime,
