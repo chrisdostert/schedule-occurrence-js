@@ -16,8 +16,8 @@ function next (
   recurrence,
   previous
 ) {
-  if (!(recurrence && previous)) {
-    // single/first occurrence
+  if (!previous) {
+    // first/single occurrence
     return DateTime
       .fromISO(
         startDateTime,
@@ -26,8 +26,13 @@ function next (
       .toJSDate()
   }
 
-  if (previous.count >= (recurrence.end && recurrence.end.count)) {
-    // end of recurrence
+  if (!recurrence) {
+    // end
+    return
+  }
+
+  if (recurrence.end && recurrence.end.count && previous.count >= recurrence.end.count) {
+    // end
     return
   }
 
