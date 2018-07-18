@@ -1,7 +1,7 @@
 const getFirstOccurrenceNextMonth = require('./getFirstOccurrenceNextMonth')
 const getOccurrenceNumber = require('./getOccurrenceNumber')
 
-function dayOfWeeks (
+function dayOfWeek (
   previousDateTime,
   dayOfWeeks,
   interval
@@ -34,4 +34,4 @@ function dayOfWeeks (
   return testDateTime
 }
 
-module.exports = dayOfWeeks
+module.exports = dayOfWeek

@@ -1,4 +1,4 @@
-function days (
+function day (
   luxonStartDateTime,
   days,
   interval
@@ -22,4 +22,4 @@ function days (
   return testDateTime
 }
 
-module.exports = days
+module.exports = day

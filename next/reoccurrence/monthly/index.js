@@ -1,24 +1,24 @@
-const dayOfWeeks = require('./dayOfWeeks')
-const days = require('./days')
+const dayOfWeek = require('./dayOfWeek')
+const day = require('./day')
 
 async function monthly (
   previousDateTime,
   recurrence,
   interval
 ) {
-  const recurrenceDays = recurrence.days
-  const recurrenceDayOfWeeks = recurrence.dayOfWeeks
+  const recurrenceDay = recurrence.day
+  const recurrenceDayOfWeek = recurrence.dayOfWeek
 
-  if (recurrenceDays) {
-    return days(
+  if (recurrenceDay) {
+    return day(
       previousDateTime,
-      recurrenceDays,
+      recurrenceDay,
       interval
     )
-  } else if (recurrenceDayOfWeeks) {
-    return dayOfWeeks(
+  } else if (recurrenceDayOfWeek) {
+    return dayOfWeek(
       previousDateTime,
-      recurrenceDayOfWeeks,
+      recurrenceDayOfWeek,
       interval
     )
   }

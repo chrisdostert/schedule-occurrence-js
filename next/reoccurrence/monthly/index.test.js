@@ -1,8 +1,8 @@
-const dayOfWeeks = require('./dayOfWeeks')
-jest.mock('./dayOfWeeks', () => jest.fn())
+const dayOfWeek = require('./dayOfWeek')
+jest.mock('./dayOfWeek', () => jest.fn())
 
-const days = require('./days')
-jest.mock('./days', () => jest.fn())
+const day = require('./day')
+jest.mock('./day', () => jest.fn())
 
 const objectUnderTest = require('./index')
 
@@ -10,11 +10,11 @@ describe('monthly', () => {
   beforeEach(() => {
     jest.resetAllMocks()
   })
-  describe('monthly.days truthy', () => {
-    it('should call days w/ expected args', async () => {
+  describe('monthly.day truthy', () => {
+    it('should call day w/ expected args', async () => {
       /* arrange */
       const providedDateTime = 'providedDateTime'
-      const providedMonthly = { days: 'days' }
+      const providedMonthly = { day: 'day' }
       const providedInterval = 'providedInterval'
 
       /* act */
@@ -25,19 +25,19 @@ describe('monthly', () => {
       )
 
       /* assert */
-      expect(days)
+      expect(day)
         .toBeCalledWith(
           providedDateTime,
-          providedMonthly.days,
+          providedMonthly.day,
           providedInterval
         )
     })
   })
-  describe('monthly.dayOfWeeks truthy', () => {
-    it('should call days w/ expected args', async () => {
+  describe('monthly.dayOfWeek truthy', () => {
+    it('should call day w/ expected args', async () => {
       /* arrange */
       const providedDateTime = 'providedDateTime'
-      const providedMonthly = { dayOfWeeks: 'dayOfWeeks' }
+      const providedMonthly = { dayOfWeek: 'dayOfWeek' }
       const providedInterval = 'providedInterval'
 
       /* act */
@@ -48,10 +48,10 @@ describe('monthly', () => {
       )
 
       /* assert */
-      expect(dayOfWeeks)
+      expect(dayOfWeek)
         .toBeCalledWith(
           providedDateTime,
-          providedMonthly.dayOfWeeks,
+          providedMonthly.dayOfWeek,
           providedInterval
         )
     })
