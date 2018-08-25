@@ -99,19 +99,19 @@ describe('next', () => {
           providedPrevious
         )
     })
-    describe('recurrence.end.dateTime < nextDateTime', () => {
+    describe('recurrence.end.date < nextDateTime', () => {
       it('should return expected result', () => {
         /* arrange */
         const providedTimeZoneId = 'America/Los_Angeles'
         const providedRecurrence = {
           end: {
-            dateTime: '2018-01-01T01:01:01'
+            date: '2018-01-01'
           }
         }
 
         const nextDateTime = DateTime
           .fromISO(
-            providedRecurrence.end.dateTime,
+            providedRecurrence.end.date,
             { zone: providedTimeZoneId }
           )
           .plus({ minutes: 1 })
